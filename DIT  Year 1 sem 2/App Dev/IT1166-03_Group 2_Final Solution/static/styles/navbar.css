@@ -1,0 +1,22 @@
+
+    /* Navigation Bar Styles */
+    .navbar-brand {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .navbar-nav {
+        margin-left: auto;
+    }
+    
+    .nav-link, .wish-list, .search-icon, .cart-icon, .profile-icon {
+        color: white;
+        margin-right: 30px;
+    }
+    
+    .wish-list, .search-icon, .cart-icon, .profile-icon {
+        font-size: 20px;
+        cursor: pointer;
+    }
+    

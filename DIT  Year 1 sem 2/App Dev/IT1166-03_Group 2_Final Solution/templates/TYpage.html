@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thank You</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .textbox {
+            width: 300px;
+            height: 200px;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            justify-content: center;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'Navbar.html' %}
+    <div class="textbox">
+        <!-- Your thank you message here -->
+        <p>Thank you for contacting us!</p>
+        <p>We have sent a ticket to your email.</p>
+        <p>Do check your email as we reach out to you for your inquiries</p>
+        <div class="button-container">
+            <a href="/" class="btn btn-primary">Home</a>
+            <a href="/ContactUs" class="btn btn-secondary">More queries?</a>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+
+</body>
+</html>

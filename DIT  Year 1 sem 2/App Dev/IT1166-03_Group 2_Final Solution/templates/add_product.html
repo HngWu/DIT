@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s4Wz6iJgD/+ub2oU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <!-- Add custom CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: black;
+        }
+
+        h1 {
+            background-color: white;
+            color: black;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            margin-top: 0; /* Add this line to remove the top margin */
+            text-align: center; /* Add this line to center-align the h1 element */
+            align-items: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        label::after {
+            content: '*';
+            color: red;
+            margin-left: 4px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            margin-bottom: 1rem;
+        }
+
+        input[type="file"] {
+            margin-bottom: 1rem;
+        }
+
+        button[type="submit"],
+        input[type="reset"],
+        input[type="button"] {
+            background-color: #333;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover,
+        input[type="button"]:hover {
+            background-color: #444;
+        }
+
+        .image-preview {
+            display: flex;
+            align-items: center;
+        }
+
+        .image-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            margin-left: 10px;
+            display: none; /* Hide initially */
+        }
+    </style>
+</head>
+<body>
+    <h1>Add Product</h1>
+
+    <form method="post" action="{{ url_for('add_product') }}" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" name="name" placeholder="RGB Keyboard" required><br>
+
+        <label for="sku">SKU:</label>
+        <input type="text" name="sku" placeholder="RGB-KB" required><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" placeholder="20" required step="1" min="0" pattern="[0-9]*"><br>
+        <label for="price">Price:</label>
+        <input type="number" step="0.01" name="price" placeholder="29.99" required><br>
+
+        <label for="status">Status:</label>
+        <select name="status" required>
+            <option value="Disabled">Disabled</option>
+            <option value="Enabled">Enabled</option>
+        </select>
+
+        <label for="discount">Discount:</label>
+        <input type="number" step="0.01" name="discount" placeholder="0" required><br>
+
+        <label for="detail">Detail:</label>
+        <input type="text" name="detail" placeholder="High Quality RGB Keyboard for Gamers" required><br>
+
+        <label for="thumbnail">Thumbnail:</label>
+        <div class="image-preview">
+            <input type="file" name="thumbnail" id="thumbnailInput" accept="image/*" onchange="displayImage('thumbnailInput', 'thumbnailImage')" required>
+            <img src="#" id="thumbnailImage" alt="Thumbnail Preview">
+            <div id="thumbnailInput-error" style="color: red;"></div>
+        </div>
+
+        <label for="images">Image:</label>
+        <div class="image-preview">
+            <input type="file" name="images" id="imagesInput" accept="image/*" onchange="displayImage('imagesInput', 'imagesImage')" required>
+            <img src="#" id="imagesImage" alt="Images Preview">
+            <div id="imagesInput-error" style="color: red;"></div>
+        </div>
+
+        <label for="more_detailed_images">More Detailed Image:</label>
+        <div class="image-preview">
+            <input type="file" name="more_detailed_images" id="detailedImagesInput" accept="image/*" onchange="displayImage('detailedImagesInput', 'detailedImagesImage')" required>
+            <img src="#" id="detailedImagesImage" alt="Detailed Images Preview">
+            <div id="detailedImagesInput-error" style="color: red;"></div>
+        </div>
+
+        <label for="type">Type:</label>
+        <select name="type" required>
+            <option value="Keyboard">Keyboard</option>
+            <option value="Switches">Switches</option>
+            <option value="Keycaps">Keycaps</option>
+            <option value="Accessories">Accessories</option>
+            <option value="SecondHandProducts">Second Hand Products</option>
+        </select>
+
+        <button type="submit">Add Product</button>
+        <button type="reset" class="btn btn-danger">Clear Form</button>
+        <a href="{{ url_for('catalog_management') }}" class="btn text-right">Back to Catalog Management</a>
+    </form>
+
+    <!-- Modal for Product Added Successfully -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Product Added</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Your product has been successfully added.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        // When the form is submitted, show the success modal
+        document.getElementById('addProductForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Show the success modal
+            $('#successModal').modal('show');
+        });
+
+        function validateInput(input) {
+            // Remove any non-numeric characters and leading zeros
+            input.value = input.value.replace(/\D/g, '').replace(/^0+/, '');
+
+            // Check if the input is empty or non-numeric
+            if (input.value === '' || isNaN(input.value)) {
+                input.value = '0'; // Set the value to 0 if it's empty or non-numeric
+            }
+        }
+
+        // Displaying of Image Preview
+        function displayImage(inputId, imageId) {
+            var input = document.getElementById(inputId);
+            var image = document.getElementById(imageId);
+            var errorMessage = document.getElementById(inputId + '-error');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    if (!checkAllowedFile(input.files[0].name)) {
+                        errorMessage.textContent = 'Unsupported file format. Please choose a valid image file.';
+                        input.value = ''; // Clear the input field if the file is not allowed
+                        image.src = '#'; // Reset image source
+                        image.style.display = 'none'; // Hide the image
+                    } else {
+                        image.src = e.target.result;
+                        image.style.display = 'block'; // Show the image
+                        errorMessage.textContent = ''; // Clear any previous error message
+                    }
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                image.src = '#'; // Reset image source
+                image.style.display = 'none'; // Hide the image
+                errorMessage.textContent = ''; // Clear any previous error message
+            }
+        }
+
+        // Checking of File Format
+        function checkAllowedFile(filename) {
+            var allowedExtensions = ['png', 'jpg', 'jpeg', 'gif'];
+            var extension = filename.split('.').pop().toLowerCase();
+            return allowedExtensions.includes(extension);
+        }
+    </script>
+</body>
+</html>

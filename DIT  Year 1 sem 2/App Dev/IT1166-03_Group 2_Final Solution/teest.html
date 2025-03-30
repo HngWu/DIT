@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
+    <a class="navbar-brand" href="{{ url_for('home') }}">NeoType</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('catalog') }}">Keyboards</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('catalog') }}">Keycaps</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('catalog') }}">Switches</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('catalog') }}">Accessories</a>
+            </li>
+        </ul>
+        <div class="d-flex">
+            <!-- Add your search icon, cart icon, and profile icon here -->
+            <span class="search-icon">&#128269;</span>
+            <a href="{{ url_for('view_cart') }}"><span class="cart-icon">&#128722;</span></a>
+            <span class="profile-icon">&#128100;</span>
+        </div>
+    </div>
+</nav>

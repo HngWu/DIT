@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Order Management</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+
+<body>
+    {% include 'Navbar.html' %}
+    <div class="container mx-auto p-4 mb-4 rounded-lg" style="max-width: 400px; box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);">   
+        <h2>Add Order</h2>
+        <form id="addOrderForm">
+            <div class="form-group">
+                <label for="addUserId">User ID:</label>
+                <input type="text" class="form-control" id="addUserId">
+            </div>
+            <div class="form-group">
+                <label for="newOrder">Order:</label>
+                <textarea class="form-control" id="newOrder"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Add Order</button>
+        </form>
+        
+        <hr/>
+
+        <h2 class="mt-4">Get Order</h2>
+        <form id="getOrderForm">
+            <div class="form-group">
+                <label for="getUserId">User ID:</label>
+                <input type="text" class="form-control" id="getUserId">
+            </div>
+            <div class="form-group">
+                <label for="getOrderId">Order ID:</label>
+                <input type="text" class="form-control" id="getOrderId">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Get Order</button>
+        </form>
+        
+        <hr/>
+
+        <h2 class="mt-4">Get All Orders</h2>
+        <form id="getAllOrdersForm">
+            <div class="form-group">
+                <label for="getAllUserId">User ID:</label>
+                <input type="text" class="form-control" id="getAllUserId">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Get All Orders</button>
+        </form>
+        
+        <hr/>
+        
+        <h2 class="mt-4">Update Order</h2>
+        <form id="updateOrderForm">
+            <div class="form-group">
+                <label for="updateUserId">User ID:</label>
+                <input type="text" class="form-control" id="updateUserId">
+            </div>
+            <div class="form-group">
+                <label for="updateOrderId">Order ID:</label>
+                <input type="text" class="form-control" id="updateOrderId">
+            </div>
+            <div class="form-group">
+                <label for="updateState">State:</label>
+                <input type="text" class="form-control" id="updateState">
+            </div>
+            <div class="form-group">
+                <label for="updateOrderDate">Order Date:</label>
+                <input type="date" class="form-control" id="updateOrderDate">
+            </div>
+            <div class="form-group">
+                <label for="updateEstimatedArrivalDate">Estimated Arrival Date:</label>
+                <input type="date" class="form-control" id="updateEstimatedArrivalDate">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Update Order</button>
+        </form>
+        
+        <hr/>
+        
+        <h2 class="mt-4">Remove Order</h2>
+        <form id="removeOrderForm">
+            <div class="form-group">
+                <label for="removeUserId">User ID:</label>
+                <input type="text" class="form-control" id="removeUserId">
+            </div>
+            <div class="form-group">
+                <label for="removeOrderId">Order ID:</label>
+                <input type="text" class="form-control" id="removeOrderId">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Remove Order</button>
+        </form>
+    </div>
+    <script>
+        $("#addOrderForm").submit(function (e) {
+            e.preventDefault();
+            $.post("/add_order", { user_id: $("#addUserId").val(), order: $("#newOrder").val() })
+                .done(function (data) {
+                    alert("Order added successfully");
+                });
+        });
+        
+        $("#getOrderForm").submit(function (e) {
+            e.preventDefault();
+            $.get("/get_order", { user_id: $("#getUserId").val(), order_id: $("#getOrderId").val() })
+                .done(function (data) {
+                    alert(JSON.stringify(data));
+                });
+        });
+        
+        $("#getAllOrdersForm").submit(function (e) {
+            e.preventDefault();
+            $.get("/get_all_orders", { user_id: $("#getAllUserId").val() })
+                .done(function (data) {
+                    alert(JSON.stringify(data));
+                });
+        });
+        
+        $("#updateOrderForm").submit(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/update_order',
+                type: 'PUT',
+                data: {
+                    user_id: $("#updateUserId").val(),
+                    order_id: $("#updateOrderId").val(),
+                    state: $("#updateState").val(),
+                    order_date: $("#updateOrderDate").val(),
+                    estimated_arrival_date: $("#updateEstimatedArrivalDate").val()
+                },
+                success: function (data) {
+                    alert(data.message);
+                },
+                error: function (xhr, status, error) {
+                    alert('Error: ' + error);
+                }
+            });
+        });
+
+        $("#removeOrderForm").submit(function (e) {
+            e.preventDefault();
+            var userId = $("#removeUserId").val();
+            var orderId = $("#removeOrderId").val();
+            $.ajax({
+                url: "/remove_order/" + userId + "/" + orderId,
+                type: 'DELETE',
+                success: function (data) {
+                    alert(JSON.stringify(data));
+                },
+                error: function (xhr, status, error) {
+                    alert('Error: ' + error);
+                }
+            });
+        });
+
+        $("#updateUserId, #updateOrderId").change(function () {
+        var userId = $("#updateUserId").val();
+        var orderId = $("#updateOrderId").val();
+
+        // 如果用户 ID 和订单 ID 都已填写，发送 AJAX 请求
+        if (userId && orderId) {
+            $.get("/get_order", { user_id: userId, order_id: orderId })
+                .done(function (data) {
+                    // 使用获取到的数据填充表单
+                    $("#updateState").val(data.state);
+                    $("#updateOrderDate").val(new Date(data.order_date).toISOString().substring(0, 10));
+                    $("#updateEstimatedArrivalDate").val(new Date(data.estimated_arrival_date).toISOString().substring(0, 10));
+                });
+        }
+    });
+    </script>
+</body>
+
+</html>

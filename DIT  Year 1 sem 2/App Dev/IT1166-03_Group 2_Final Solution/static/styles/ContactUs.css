@@ -1,0 +1,34 @@
+.ContactUs_Block {
+    padding-left: 20px; /* Adjust as needed */
+    padding-right: 20px; /* Adjust as needed */
+    padding-bottom: 20px;
+    margin: 0 50px 50px;
+    border-radius: 40px;
+    background-color: lightgrey;
+    border: black 1px solid;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Optional: adds some space between the buttons */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 50%;
+}

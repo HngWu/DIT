@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Keyboard Shop</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha384-csZXEAg5MhqLMpG8r+Knujsl5+z0I5t9z5lFf5r+brL4Zcv/dpGp1it16IdMK4t6"
+        crossorigin="anonymous">
+
+    <style>
+
+        /* This applies to the whole webpage */
+    ::-webkit-scrollbar {
+        width: 10px; /* width of the entire scrollbar */
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1; /* color of the tracking area */
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #888; /* color of the scroll thumb */
+        border-radius: 10px; /* roundness of the scroll thumb */
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555; /* color of the scroll thumb when hovering */
+    }
+
+        /* General Styles */
+        .clearfix {
+            clear: both;
+        }
+
+        .column {
+            padding: 0 !important;
+            margin: 0 !important;
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+        }
+
+        .btn {
+            border-radius: 25px;
+        }
+
+        /* Navigation Bar Styles */
+        .navbar-brand {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .nav-link, .search-icon, .cart-icon, .profile-icon {
+            color: white;
+            margin-right: 15px;
+        }
+
+        .search-icon, .cart-icon, .profile-icon {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Main Page Div Blocks Styles */
+        .container-main {
+            margin-top: 56px;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .top-left-block, .top-right-block {
+            margin-top: 30px;
+            background-color: transparent;
+            border-radius: 20px;
+            width: 250px;
+            height: 100px;
+        }
+
+        .top-left-block {
+            padding: 20px;
+        }
+
+        .left-block, .right-block {
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        .left-block {
+            width: 210px;
+            height: 350px;
+            background-color: #f0f0f0;
+        }
+
+        .right-block {
+            width: 60vw;
+            height: auto;
+            background-color: #e0e0e0;
+        }
+
+        .right-block .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        /* Product Card Styles */
+        .product-container {
+            max-width: 300px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 200px;
+        }
+
+        .product-image {
+            width: 200px;
+            height: 150px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            object-fit: cover;
+        }
+
+        .product-details {
+            text-align: left;
+        }
+
+        .product-details h2, .product-details p {
+            margin-bottom: 10px;
+        }
+
+        .product-details h2 {
+            font-size: 18px;
+        }
+
+        .product-details p {
+            font-size: 14px;
+        }
+
+        .btn-add-to-cart, .btn-view-details {
+            width: 100%;
+            padding: 5px;
+            border-spacing: 5px;
+            margin-bottom: 10px;
+        }
+
+        .btn-add-to-cart {
+            margin-top: 10px;
+        }
+
+        /* Other Styles */
+        .filter-label {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #products-title {
+            text-decoration: underline;
+        }
+
+        /* Responsive Styles */
+        .col-md-3 {
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+
+        @media (max-width: 1200px) {
+            .col-md-3 {
+                flex: 0 0 33.33%;
+                max-width: 33.33%;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .col-md-3 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .col-md-3 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
+        <a class="navbar-brand" href="#">NeoType</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="#" data-category="keyboards">Keyboards</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-category="keycaps">Keycaps</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-category="switches">Switches</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-category="accessories">Accessories</a></li>
+            </ul>
+            <div class="d-flex">
+                <span class="search-icon">&#128269;</span>
+                <span class="cart-icon">&#128722;</span>
+                <span class="profile-icon">&#128100;</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Catalog Content -->
+    <div class="container-main">
+        <div class="container">
+            <div class="column">
+                <div class="top-left-block"><h1></h1></div>
+                <div class="left-block">
+                    <form method="post" action="{{ url_for('filtered_catalog') }}">
+                        <input type="hidden" name="type" value="{{ type }}">
+                        <label class="filter-label">Filter by Category:</label>
+                        <div><input type="checkbox" name="selected_categories[]" value="all" checked> All</div>
+                        <div><input type="checkbox" name="selected_categories[]" value="Keyboard"> Keyboard</div>
+                        <div><input type="checkbox" name="selected_categories[]" value="Switches"> Switches</div>
+                        <div><input type="checkbox" name="selected_categories[]" value="Keycaps"> Keycaps</div>
+                        <div><input type="checkbox" name="selected_categories[]" value="Accessories"> Accessories</div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="top-right-block">
+                    <h1 id="products-title">Products</h1>
+                    <p class="text-black" id="total-products">Total Products: {{ num_products }}</p>
+                </div>
+                <div class="right-block">
+                    <div class="row">
+                        {% for sku, product in productDict.items() %}
+                            <div class="col-md-3">
+                                <div class="product-container">
+                                    <div class="product-card" data-category="{{ product.get_product_type() }}">
+                                        {% if product.get_product_thumbnail() %}
+                                            <img src="{{ url_for('static', filename=product.get_product_thumbnail()) }}" alt="" class="product-image img-fluid">
+                                        {% else %}
+                                            No Image
+                                        {% endif %}
+                                        <div class="product-details">
+                                            <h2>{{ product.get_product_name() }}</h2>
+                                            <p>
+                                                Product Details: {{ product.get_product_detail() }}<br>
+                                                Product Price: ${{ product.get_product_price() }}0<br>
+                                            </p>
+                                            <input type="hidden" name="sku" value="{{ sku }}">
+                                            <input type="hidden" name="type" value="{{ type }}">
+                                            <input type="hidden" name="quantity" min="1" value="1">
+                                            <input type="hidden" name="product_name" value="{{ product.get_product_name() }}">
+                                            <button type="submit" class="btn btn-primary btn-add-to-cart">Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<br>
+<br>
+
+{% include 'footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $('input[type=checkbox]').on('change', function() {
+            var selectedCategories = [];
+            $('input[type=checkbox]:checked').each(function() {
+                selectedCategories.push($(this).val());
+            });
+
+            // If no checkboxes are selected, treat it as if 'All' is selected
+            if (selectedCategories.length === 0) {
+                selectedCategories.push('all');
+            }
+
+            var visibleProductCount = 0;
+            $('.product-card').each(function() {
+                var productCategory = $(this).data('category');
+                if (selectedCategories.includes(productCategory) || selectedCategories.includes('all')) {
+                    $(this).parent().parent().show();
+                    visibleProductCount++;
+                } else {
+                    $(this).parent().parent().hide();
+                }
+            });
+
+            $('#total-products').text('Total Products: ' + visibleProductCount);
+        });
+
+        // Modified code for navigation bar
+        $('.nav-link').on('click', function(e) {
+            e.preventDefault(); // Prevent the default action of the link
+            var selectedCategory = $(this).data('category');
+
+            // Uncheck the 'All' checkbox
+            $('input[value="all"]').prop('checked', false);
+
+            // Check the checkbox corresponding to the selected category
+            $('input[value="' + selectedCategory + '"]').prop('checked', true);
+
+            // Trigger the change event to filter the product cards
+            $('input[type=checkbox]').trigger('change');
+        });
+    });
+    </script>
+
+</body>
+</html>

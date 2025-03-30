@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+    {% block navbar %}
+        {% include "Navbarforadmin.html" %}
+    {% endblock %}
+
+
+
+    <h2>HTML Form</h2>
+    <form method="post">
+        <select name="uid">
+            {% for uid in uids %}
+            <option value="{{ uid }}">{{ uid }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Delete Account">
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About us</title>
+  <!-- Add Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="static/styles/navbar.css">
+  <link rel="stylesheet" type="text/css" href="static/styles/about.css">
+</head>
+<body>
+  {% include 'Navbar.html' %}
+  <br>
+  <br>
+  <br>
+  <div class="container">
+    <div class="col-md-12">
+      <h1>About NeoType</h1>
+      <div class="div-block">
+        <div class="row">
+          <div class="col-md-4">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="/about-us">About NeoType</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="/FAQ">FAQ</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="/sus">Sustainability Efforts</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="about-text">
+        <p>
+          At NeoType, we're on a mission to revolutionize the way people interact with technology through innovative typing solutions. Our journey began with a simple realization: traditional typing methods often hinder productivity and comfort, leading to inefficiencies and discomfort for users worldwide.
+        </p>
+        <p>
+          Driven by a passion for ergonomic design and enhanced user experiences, we embarked on a quest to create a typing method that not only improves typing speed and accuracy but also prioritizes user well-being. The result? NeoType – a groundbreaking typing method meticulously crafted to optimize typing performance while promoting ergonomic principles and comfort.
+        </p>
+        <p>
+          What sets NeoType apart is its unique approach to typing, which goes beyond the limitations of conventional keyboard layouts. By leveraging scientific research and ergonomic principles, we've developed a customized keyboard layout that minimizes finger movement, reduces typing fatigue, and enhances overall typing comfort.
+        </p>
+        <p>
+          But NeoType is more than just a typing method; it's a journey toward better typing habits and improved well-being. With NeoType, users not only experience faster typing speeds and reduced errors but also benefit from better posture and reduced risk of repetitive strain injuries.
+        </p>
+        <p>
+          Our commitment to excellence extends beyond the product itself. We're dedicated to empowering individuals of all ages and backgrounds to unleash their full typing potential. Whether you're a student, professional, or enthusiast, NeoType offers a personalized learning experience tailored to your unique needs and preferences.
+        </p>
+        <p>
+          Join us on this transformative journey as we redefine the future of typing. Together, let's type smarter, faster, and healthier with NeoType. Welcome to the future of typing. Welcome to NeoType.
+        </p>
+      </div>
+    </div>
+  </div>
+
+{% include 'footer.html' %}
+{% block scripts %}
+{% endblock %}
+</body>
+</html>

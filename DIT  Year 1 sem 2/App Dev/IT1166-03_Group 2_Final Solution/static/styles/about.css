@@ -1,0 +1,44 @@
+.purple-div-block {
+    background-color: #753396;
+    padding: 50px 0;
+    border-radius: 10px;
+  }
+  
+  .purple-div-block ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .purple-div-block ul li {
+    margin-bottom: 10px;
+  }
+  
+  .purple-div-block ul li a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .purple-div-block ul li a:hover {
+    color: #ccc;
+  }
+  
+  .purple-div-block .nav-link.active {
+    background-color: #591e6c;
+    padding: 5px 15px;
+    border-radius: 3px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  
+  .purple-div-block .tab-content {
+    margin-top: 30px;
+  }
+  
+  .purple-div-block .tab-content h2 {
+    margin-bottom: 20px;
+  }
+  
+  .purple-div-block .tab-content p {
+    color: #fff;
+  }

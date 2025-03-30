@@ -1,0 +1,133 @@
+<!-- input_particulars.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+          integrity="sha384-csZXEAg5MhqLMpG8r+Knujsl5+z0I5t9z5lFf5r+brL4Zcv/dpGp1it16IdMK4t6"
+          crossorigin="anonymous">
+          <link rel="stylesheet" type="text/css" href="static/styles/catalog.css">
+    <style>
+
+    h1{
+        padding: 30px;
+        text-align: center;
+    }
+    .navbar {
+        background-color: #007bff;
+    }
+
+    .navbar-brand {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .navbar-nav {
+        margin-left: auto;
+    }
+
+    .nav-link {
+        color: white;
+        margin-right: 15px;
+    }
+
+    .search-icon, .cart-icon, .profile-icon {
+        color: white;
+        font-size: 20px;
+        margin-right: 15px;
+        cursor: pointer;
+    }
+
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
+    <a class="navbar-brand" href="{{ url_for('home') }}">NeoType</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Keyboards</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Keycaps</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Switches</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Accessories</a>
+            </li>
+        </ul>
+        <div class="d-flex">
+            <!-- Add your search icon, cart icon, and profile icon here -->
+            <span class="search-icon">&#128269;</span>
+            <a href="{{ url_for('view_cart') }}"><span class="cart-icon">&#128722;</span></a>
+            <span class="profile-icon">&#128100;</span>
+        </div>
+    </div>
+</nav>
+<div class="container mt-5">
+    <h1 class="mb-4">Order</h1>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control", required="required", pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", title="Enter a valid email address in the format abc@email.com", placeholder="Enter your email") }}
+            {% if form.email.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.email.errors[0] }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.phone.label(class="form-label") }}
+            {{ form.phone(class="form-control", required="required", pattern="[0-9]{8}", title="Enter a valid 8-digit phone number", placeholder="Enter your phone number") }}
+            {% if form.phone.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.phone.errors[0] }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.address.label(class="form-label") }}
+            {{ form.address(class="form-control", required="required", placeholder="Enter your address") }}
+            {% if form.address.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.address.errors[0] }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.postalcode.label(class="form-label") }}
+            {{ form.postalcode(class="form-control", required="required", pattern="[0-9]{6}", title="Enter a valid 5-digit postal code", placeholder="Enter your postal code") }}
+            {% if form.postalcode.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.postalcode.errors[0] }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.shipping.label(class="form-label") }}
+            {{ form.shipping(class="form-control", required="required", placeholder="Enter your shipping details") }}
+            {% if form.shipping.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.shipping.errors[0] }}
+                </div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>

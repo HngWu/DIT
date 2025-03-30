@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <style>
+    body {
+        padding-top: 56px; /* Adjust based on the height of your navigation bar */
+    }
+
+    .navbar {
+        background-color: #007bff;
+    }
+
+    .navbar-brand {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .navbar-nav {
+        margin-left: auto;
+    }
+
+    .nav-link {
+        color: white;
+        margin-right: 15px;
+    }
+
+    .search-icon, .cart-icon, .profile-icon {
+        color: white;
+        font-size: 20px;
+        margin-right: 15px;
+        cursor: pointer;
+    }
+</style>
+        {% endblock %}
+
+</head>
+
+<body>
+    {% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <a class="navbar-brand" href="#">My Keyboard Shop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Keyboards</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Keycaps</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Switches</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Accessories</a>
+            </li>
+        </ul>
+        <div class="d-flex">
+            <!-- Add your search icon, cart icon, and profile icon here -->
+            <span class="search-icon">&#128269;</span>
+<a href="{{ url_for('view_cart') }}"><span class="cart-icon">&#128722;</span></a>
+            <span class="profile-icon">&#128100;</span>
+        </div>
+    </div>
+</nav>
+
+{% endblock %}
+
+<!-- Add your footer and scripts here -->
+
+</body>
+</html>

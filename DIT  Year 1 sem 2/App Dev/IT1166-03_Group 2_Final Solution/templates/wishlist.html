@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Keyboard Shop</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha384-csZXEAg5MhqLMpG8r+Knujsl5+z0I5t9z5lFf5r+brL4Zcv/dpGp1it16IdMK4t6"
+        crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="static/styles/catalog.css">
+</head>
+
+<body>
+{% include 'Navbar.html' %}
+    
+    <!-- Catalog Content -->
+    <div class="container-main">
+        <div class="container">
+            <div class="column">
+                <div class="top-left-block"><h1></h1></div>
+                <div class="left-block">
+                    <form method="post" action="{{ url_for('filtered_catalog') }}">
+                        <input type="hidden" name="type" value="{{ type }}">
+                        <div  class="product-category"><h3>All Products</h3></div>
+                        <div><a href="{{ url_for('keyboards') }}" name="selected_categories[]" value="Keyboard">Keyboard</a></div>
+                        <div><a href="{{ url_for('switches') }}" name="selected_categories[]" value="Switches">Switches</a></div>
+                        <div><a href="{{ url_for('keycaps') }}" name="selected_categories[]" value="Keycaps">Keycaps</a></div>
+                        <div><a href="{{ url_for('accessories') }}" name="selected_categories[]" value="Accessories">Accessories</a></div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="column">
+                <div class="top-right-block">
+                    <h1 id="products-title">Wishlist</h1>
+                    <p class="text-black" id="total-products">Total Products: {{ num_products }}</p>
+                </div>
+                <div class="right-block">
+                    <div class="row">
+                        {% for sku, product in productDict.items() %}
+                            <div class="col-md-3">
+                                <div class="product-container">
+                                    <div class="product-card" data-category="{{ product.get_product_type() }}">
+                                        {% if product.get_product_thumbnail() %}
+                                            <img
+                                            src="{{ url_for('static', filename=product.get_product_thumbnail()) }}"
+                                            alt=""
+                                            class="product-image">
+                                        {% else %}
+                                            No Image
+                                        {% endif %}
+                                        <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+                                            <div class="product-details">
+                                                <h2>{{ product.get_product_name() }}</h2>
+                                                <p>
+                                                    Product Details: {{ product.get_product_detail() }}<br>
+                                                    Product Price: ${{ "%.2f"|format(product.get_product_price()) }}<br>
+                                                </p>
+                                                <div>
+                                                    <input type="hidden" name="sku" value="{{ sku }}">
+                                                    <input type="hidden" name="type" value="{{ type }}">
+                                                    <input type="hidden" name="quantity" min="1" value="1">
+                                                    <input type="hidden" name="product_name" value="{{ product.get_product_name() }}">
+                                                </div>
+                                            </div>
+                                            <div style="display: flex; flex-direction: column;">
+                                                <button type="submit" class="btn btn-primary btn-add-to-cart">Add to Cart</button>
+                                                <button type="submit" class="btn btn-primary btn-view-details">View Details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<br>
+<br>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+{% include 'footer.html' %}
+
+</body>
+</html>

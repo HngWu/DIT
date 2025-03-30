@@ -1,0 +1,218 @@
+
+/* This applies to the whole webpage */
+::-webkit-scrollbar {
+    width: 10px; /* width of the entire scrollbar */
+    }
+    
+    ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* color of the tracking area */
+    }
+    
+    ::-webkit-scrollbar-thumb {
+    background: #888; /* color of the scroll thumb */
+    border-radius: 10px; /* roundness of the scroll thumb */
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+    background: #555; /* color of the scroll thumb when hovering */
+    }
+    
+    /* General Styles */
+    .clearfix {
+        clear: both;
+    }
+    
+    .column {
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex;
+        flex-direction: column;
+        margin-right: 20px;
+    }
+    
+    .btn {
+        border-radius: 25px;
+    }
+    
+    /* Navigation Bar Styles */
+    .navbar-brand {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .navbar-nav {
+        margin-left: auto;
+    }
+    
+    .nav-link, .search-icon, .cart-icon, .profile-icon {
+        color: white;
+        margin-right: 15px;
+    }
+    
+    .search-icon, .cart-icon, .profile-icon {
+        font-size: 20px;
+        cursor: pointer;
+    }
+    
+    /* Main Page Div Blocks Styles */
+    .left-block, input[type="text"], input[type="number"] {
+        width: 100%; /* Adjust this value to your liking */
+    }
+
+    .container-main {
+        margin-top: 56px;
+    }
+    
+    .container {
+        display: flex;
+    }
+    
+
+    .top-right-block {
+        margin-left: 20px;
+        margin-top: 30px;
+        background-color: transparent;
+        border-radius: 20px;
+        width: 500px;
+        height: 100px;
+    }
+    
+    .top-left-block {
+        margin-top: 30px;
+        background-color: transparent;
+        border-radius: 20px;
+        width: 250px;
+        height: 100px;
+    }
+    
+    .left-block, .right-block {
+        border-radius: 20px;
+        padding: 20px;
+    }
+    
+    .left-block {
+        width: 210px;
+        height: 350px;
+        background-color: #f0f0f0;
+    }
+    
+    .right-block {
+        width: 60vw;
+        height: auto;
+        background-color: #e0e0e0;
+    }
+    
+    .right-block .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    /* Product Card Styles */
+    .product-container {
+        max-width: 300px;
+        margin: 0 auto;
+        display: grid;
+    }
+    
+    .product-card {
+        height: 450px;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 4px 2px 4px 4px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        /* justify-content: space-between; */
+        z-index: 30;
+        background-color: white;
+    }
+    
+    .product-image {
+        width: 100%;
+        max-height: 180px;
+        min-height: 180px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        object-fit: contain;
+    }
+    
+    .product-details {
+
+        text-align: left;
+    }
+    
+    .product-details h2, .product-details p {
+        margin-bottom: 10px;
+    }
+    
+    .product-details h2 {
+        font-size: 18px;
+    }
+    
+    .product-details p {
+
+        font-size: 14px;
+    }
+    
+    .btn-add-to-cart, .btn-view-details {
+        width: 100%;
+        padding: 5px;
+        border-spacing: 5px;
+        margin-bottom: 10px;
+    }
+    
+    .btn-add-to-cart {
+        margin-top: 5px;
+    }
+    
+    .btn-view-details {
+        background-color: #f0f0f0;
+        color: blue;
+    }
+
+    .product-category {
+        text-decoration: underline;
+    }
+    
+    /* Other Styles */
+    .filter-label {
+        font-size: 1.25em;
+        font-weight: bold;
+        color: #333;
+        text-decoration: underline;
+    }
+    
+    #products-title {
+        text-decoration: underline;
+    }
+
+    
+    
+    /* Responsive Styles */
+    .col-md-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+    
+    @media (max-width: 1200px) {
+        .col-md-3 {
+            flex: 0 0 33.33%;
+            max-width: 33.33%;
+        }
+    }
+    
+    @media (max-width: 900px) {
+        .col-md-3 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+    
+    @media (max-width: 600px) {
+        .col-md-3 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+    

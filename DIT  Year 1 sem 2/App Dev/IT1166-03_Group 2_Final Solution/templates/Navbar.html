@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha384-csZXEAg5MhqLMpG8r+Knujsl5+z0I5t9z5lFf5r+brL4Zcv/dpGp1it16IdMK4t6"
+    crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="static/styles/navbar.css">
+    <style>
+      ::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #cccccc;
+}
+::-webkit-scrollbar-thumb {
+  background: #0075ea;
+  border: 1px solid #cccccc;
+  border-radius: 15px;
+  transition-duration: 0.2s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00366c;
+}
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
+    <a class="navbar-brand" href="/">NeoType</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('all_products') }}" data-category="all">All</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('keyboards') }}" data-category="keyboards">Keyboards</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('keycaps') }}" data-category="keycaps">Keycaps</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('switches') }}" data-category="switches">Switches</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('accessories') }}" data-category="accessories">Accessories</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('secondhandproducts') }}" data-category="secondhand">Second-Hand</a></li>
+        </ul>
+        <div class="d-flex">
+            <!-- <a href="{{ url_for('wishlist') }}"><span class="wish-list">&#10084;</span></a> -->
+            <span class="search-icon">&#128269;</span>
+            <a href="{{ url_for('view_cart') }}"><span class="cart-icon">&#128722;</span></a>
+            <a href="{{url_for('login')}}"><span class="profile-icon">&#128100;</span></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+    </div>
+</nav>
+  </body>
+</html>

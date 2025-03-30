@@ -1,0 +1,72 @@
+<!-- footer.html -->
+<!-- Footer onwards -->
+<!-- footer_template.html -->
+<head>
+    <link rel="stylesheet" type="text/css" href="static/styles/style.css">
+</head>
+  
+  <footer class="siteFooter">
+    <div class="siteFooter__main__wrapper">
+      <div class="container">
+        <div class="siteFooter__row">
+          <div class="siteFooter__lists-container">
+            <div class="siteFooter__list">
+                <ul>
+                    <li>
+                        <a href="{{ url_for('home') }}" class="siteFooter__title">NeoType</a>
+                    </li>
+                    <li>
+                        <a href="/about-us" class="siteFooter__item">About Us</a>
+                    </li>
+                    <li>
+                        <a href="/ContactUs" class="siteFooter__item">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="siteFooter__list">
+                <ul>
+                    <li class="siteFooter__title">
+                        <a>Support</a>
+                    </li>
+                    <li>
+                    <a href="/FAQ" class="siteFooter__item">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="siteFooter__list">
+                <ul>
+                    <li class="siteFooter__title">Get In Touch</li>
+                    <li>
+                      <a href="mailto:NeoType@outlook.com" class="siteFooter__item">Email Us</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="siteFooter__list">
+              <!-- Add your list items here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="siteFooter__secondary__wrapper">
+      <div class="container -wide">
+        <div class="siteFooter__row">
+          <div class="siteFooter__secondary__col-wrapper">
+            <div class="siteFooter__secondary__col">© {{ current_year }} NeoType</div>
+            <div class="siteFooter__secondary__col siteFooter__secondary__col--terms">
+              <div>
+                  <a href="{{ url_for('terms') }}" class="-white css-0">Terms</a>
+                  &amp; 
+                  <a href="{{ url_for('privacy_statement') }}" class="-white css-0">Privacy</a>
+              </div>
+            </div>
+            <div class="siteFooter__secondary__col siteFooter__secondary__col--social">
+              <!-- Add your social media links here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s4Wz6iJgD/+ub2oU" crossorigin="anonymous">
+    <!-- Add custom CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: black;
+        }
+
+        h1 {
+            background-color: white;
+            color: black;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            margin-top: 0; /* Add this line to remove the top margin */
+            text-align: center; /* Add this line to center-align the h1 element */
+            align-items: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            margin-bottom: 1rem;
+        }
+
+        input[type="file"] {
+            margin-bottom: 1rem;
+        }
+
+        input[type="file"] {
+            margin-bottom: 1rem;
+        }
+
+        button[type="submit"],
+        input[type="button"] {
+            background-color: #333;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover,
+        input[type="button"]:hover {
+            background-color: #444;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        label::after {
+            content: '*';
+            color: red;
+            margin-left: 4px;
+        }
+
+        img.thumbnail,
+        img.images,
+        img.more-detailed-images {
+            max-width: 200px;
+            max-height: 200px;
+            margin-bottom: 10px; /* Add more margin */
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align to the start (left) */
+        }
+
+        .image-container label {
+            margin-bottom: 0.5rem; /* Add margin between label and button */
+        }
+
+        button.thumbnail,
+        button.images,
+        button.more-detailed-images {
+            margin-top: 10px; /* Add margin at the top */
+            padding: 0.5rem 1rem; /* Adjust padding */
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button.thumbnail:hover,
+        button.images:hover,
+        button.more-detailed-images:hover {
+            background-color: #444;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 5px;
+            font-size: 12px;
+            display: block; /* Add this line to explicitly set the display property */
+        }
+    </style>
+</head>
+<body>
+    <h1 class="d-flex align-items-center">Edit Product</h1>
+
+    <form method="post" action="{{ url_for('edit_product_admin', product_id=product.get_product_id()) }}" enctype="multipart/form-data">
+        <h2>Product ID: {{ product.get_product_id() }}</h2>
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="{{ product.get_product_name() }}" required><br>
+
+        <label for="sku">SKU:</label>
+        <input type="text" name="sku" value="{{ product.get_product_sku() }}" required><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" value="{{ product.get_product_quantity() }}" required pattern="[0-9]*">
+
+        <label for="price">Price:</label>
+        <input type="number" step="0.01" name="price" value="{{ '%.2f' | format(product.get_product_price()) }}" required><br>
+
+        <script>
+            var productStatus = "{{ product.get_product_status() }}";
+            var statusDropdown = document.createElement("select");
+            statusDropdown.name = "status";
+            statusDropdown.required = true;
+
+            var optionDisabled = document.createElement("option");
+            optionDisabled.value = "Disabled";
+            optionDisabled.text = "Disabled";
+            statusDropdown.appendChild(optionDisabled);
+
+            var optionEnabled = document.createElement("option");
+            optionEnabled.value = "Enabled";
+            optionEnabled.text = "Enabled";
+            statusDropdown.appendChild(optionEnabled);
+
+            if (productStatus === "Disabled") {
+                optionDisabled.selected = true;
+            } else {
+                optionEnabled.selected = true;
+            }
+
+            var statusLabel = document.createElement("label");
+            statusLabel.innerText = "Status:";
+            statusLabel.classList.add("bold"); // Add the bold class
+            document.querySelector("form").appendChild(statusLabel);
+            document.querySelector("form").appendChild(statusDropdown);
+        </script>
+
+        <label for="discount">Discount:</label>
+        <input type="number" step="0.01" name="discount" value="{{ '%.2f' | format(product.get_product_discount()) }}" required><br>
+
+        <label for="detail">Detail:</label>
+        <input type="text" name="detail" value="{{ product.get_product_detail() }}" required><br>
+
+        <div class="image-container">
+            <label for="thumbnail">Thumbnail:</label>
+            <img src="{{ url_for('static', filename=product.get_product_thumbnail()) }}" id="thumbnailImage" alt="Thumbnail Image" class="thumbnail">
+            <input type="file" name="thumbnail" id="thumbnailInput" accept="image/*" style="display: none" onchange="displayThumbnail()">
+            <button type="button" id="thumbnailButton" onclick="changeThumbnail()">Change Thumbnail</button>
+            <div id="thumbnailInput-error" class="error-message"></div>
+        </div>
+
+        <div class="image-container">
+            <label for="images">Image:</label>
+            <img src="{{ url_for('static', filename=product.get_product_images()) }}" id="imagesImage" alt="Images" class="images">
+            <input type="file" name="images" id="imagesInput" accept="image/*" style="display: none" onchange="displayImages()">
+            <button type="button" id="imagesButton" onclick="changeImages()">Change Image</button>
+            <div id="imagesInput-error" class="error-message"></div>
+        </div>
+
+        <div class="image-container">
+            <label for="more_detailed_images">More Detailed Image:</label>
+            <img src="{{ url_for('static', filename=product.get_product_more_detailed_images()) }}" id="detailedImagesImage" alt="More Detailed Images" class="more-detailed-images">
+            <input type="file" name="more_detailed_images" id="detailedImagesInput" accept="image/*" style="display: none" onchange="displayDetailedImages()">
+            <button type="button" id="detailedImagesButton" onclick="changeDetailedImages()">Change More Detailed Image</button>
+            <div id="detailedImagesInput-error" class="error-message"></div>
+        </div>
+
+
+        <script>
+            // Check if the file is an allowed image type
+            function checkAllowedFile(file) {
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                return allowedTypes.includes(file.type);
+            }
+
+            // Display Thumbnail
+            function displayThumbnail() {
+                const input = document.getElementById('thumbnailInput');
+                const image = document.getElementById('thumbnailImage');
+                const errorMessage = document.getElementById('thumbnailInput-error');
+
+                if (input.files && input.files[0]) {
+                    if (!checkAllowedFile(input.files[0])) {
+                        errorMessage.textContent = 'Unsupported file format. Please choose a valid image file.';
+                        input.value = ''; // Clear the input field if the file is not allowed
+                        return;
+                    }
+
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        image.src = e.target.result;
+                        errorMessage.textContent = ''; // Clear any previous error message
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            // Display Images
+            function displayImages() {
+                const input = document.getElementById('imagesInput');
+                const image = document.getElementById('imagesImage');
+                const errorMessage = document.getElementById('imagesInput-error');
+
+                if (input.files && input.files[0]) {
+                    if (!checkAllowedFile(input.files[0])) {
+                        errorMessage.textContent = 'Unsupported file format. Please choose a valid image file.';
+                        input.value = ''; // Clear the input field if the file is not allowed
+                        return;
+                    }
+
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        image.src = e.target.result;
+                        errorMessage.textContent = ''; // Clear any previous error message
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            // Display Detailed Images
+            function displayDetailedImages() {
+                const input = document.getElementById('detailedImagesInput');
+                const image = document.getElementById('detailedImagesImage');
+                const errorMessage = document.getElementById('detailedImagesInput-error');
+
+                if (input.files && input.files[0]) {
+                    if (!checkAllowedFile(input.files[0])) {
+                        errorMessage.textContent = 'Unsupported file format. Please choose a valid image file.';
+                        input.value = ''; // Clear the input field if the file is not allowed
+                        return;
+                    }
+
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        image.src = e.target.result;
+                        errorMessage.textContent = ''; // Clear any previous error message
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            // Change Thumbnail
+            function changeThumbnail() {
+                const input = document.getElementById('thumbnailInput');
+                input.click(); // Trigger the hidden file input click event
+            }
+
+            // Change Images
+            function changeImages() {
+                const input = document.getElementById('imagesInput');
+                input.click(); // Trigger the hidden file input click event
+            }
+
+            // Change More Detailed Images
+            function changeDetailedImages() {
+                const input = document.getElementById('detailedImagesInput');
+                input.click(); // Trigger the hidden file input click event
+            }
+
+            // Getting Product Type
+            var productType = "{{ product.get_product_type() }}";
+            var typeDropdown = document.createElement("select");
+            typeDropdown.name = "type";
+            typeDropdown.required = true;
+
+            var typeOptions = ["Keyboard", "Switches", "Keycaps", "Accessories", "SecondHandProducts"];
+
+            for (var i = 0; i < typeOptions.length; i++) {
+                var option = document.createElement("option");
+                option.value = typeOptions[i];
+                option.text = typeOptions[i];
+
+                if (productType === typeOptions[i]) {
+                    option.selected = true;
+                }
+
+                typeDropdown.appendChild(option);
+            }
+
+            var typeLabel = document.createElement("label");
+            typeLabel.innerText = "Type:";
+            typeLabel.classList.add("bold"); // Add the bold class
+            document.querySelector("form").appendChild(document.createElement("br")); // Add a line break
+            document.querySelector("form").appendChild(typeLabel);
+            document.querySelector("form").appendChild(typeDropdown);
+        </script>
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</body>
+</html>

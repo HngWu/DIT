@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+             opacity: 1;
+        transition: opacity 0.1s ease;
+        }
+         .fade-out {
+        opacity: 0;
+    }
+        .cart-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-details {
+            flex-grow: 1;
+            margin-right: 16px;
+        }
+
+        .product-image {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 8px;
+            margin-right: 16px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            width: 24px;
+            height: 24px;
+            margin: 0 4px;
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            font-size: 1em;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .quantity-input:hover, .quantity-input:focus {
+            /* Remove up and down arrows */
+            appearance: none;
+            -moz-appearance: textfield;
+            width: 50px;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .remove-btn {
+            color: red;
+            cursor: pointer;
+            text-align: left;
+            display: block;
+            margin-top: 8px;
+            margin-left: 28px;
+        }
+
+        .price {
+            text-align: right;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .checkout-link {
+            text-decoration: none;
+            font-weight: bold;
+        }
+             body {
+        padding-top: 56px; /* Adjust based on the height of your navigation bar */
+    }
+
+    .navbar {
+        background-color: #007bff;
+    }
+    
+    .navbar-brand {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .navbar-nav {
+        margin-left: auto;
+    }
+
+    .nav-link {
+        color: white;
+        margin-right: 15px;
+    }
+
+    .search-icon, .cart-icon, .profile-icon {
+        color: white;
+        font-size: 20px;
+        margin-right: 15px;
+        cursor: pointer;
+    }
+    /* Add this to your existing styles or update accordingly */
+
+.subtotal {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.checkout-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.continue-shopping,
+.checkout-link {
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.continue-shopping {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.checkout-link {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.continue-shopping:hover,
+.checkout-link:hover {
+color: white
+}
+h1, .centertext{
+    text-align: center;
+}
+/* Adjust the colors and styles as needed */
+
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+          integrity="sha384-csZXEAg5MhqLMpG8r+Knujsl5+z0I5t9z5lFf5r+brL4Zcv/dpGp1it16IdMK4t6"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+    {% include 'Navbar.html' %}
+
+    <!-- Updated view_cart.html -->
+
+<div class="cart-container">
+    <h1>Shopping Cart</h1>
+    {% if cart.products %}
+        {% for product, quantity in cart.products.items() %}
+<div class="product-card" id="product_card_{{ product.get_product_name() }}">
+                <img src="{{ url_for('static', filename=product.get_product_thumbnail()) }}" alt="Product Image" class="product-image">
+                <div class="product-details">
+                    <h3>{{ product.get_product_name() }}</h3>
+                    <p>{{ product.get_product_detail() }}</p>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="adjustQuantity('{{ product.get_product_name() }}', -1)">-</button>
+<!-- Update the quantity input field in your product card -->
+<input type="number" inputmode="numeric" id="quantity_{{ product.get_product_name() }}" name="quantity" value="{{ quantity }}" class="quantity-input" min="1" data-product-name="{{ product.get_product_name() }}" data-prev-value="{{ quantity }}">
+    <button class="quantity-btn" onclick="adjustQuantity('{{ product.get_product_name() }}', 1)">+</button>
+                    </div>
+    <div class="remove-btn" onclick="deleteProduct('{{ product.get_product_name() }}')">Remove</div>
+                </div>
+                <div class="price">${{ product.get_product_price() * quantity }}0</div>
+            </div>
+        {% endfor %}
+
+        <!-- Subtotal calculation and checkout button -->
+        <div class="subtotal">
+            <p>Subtotal: ${{ cart.calculate_total() }}0</p>
+            <a href="{{ url_for('home') }}" class="continue-shopping">Continue Shopping</a>
+            <a href="{{ url_for('checkout') }}" class="checkout-link">Proceed to Checkout</a>
+        </div>
+
+    {% else %}
+        <p class="centertext">Your cart is empty.</p>
+    {% endif %}
+</div>
+
+<!-- Add these updates to your existing script in view_cart.html -->
+{% include 'footer.html' %}
+
+<script>
+    function adjustQuantity(productName, quantityChange) {
+        fetch('/adjust_quantity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                product_name: productName,
+                quantity_change: quantityChange,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Use the data returned from the server to update the cart locally
+            if (data.new_quantity > 0) {
+                document.getElementById(`quantity_${productName}`).value = data.new_quantity;
+            } else {
+                // If quantity becomes zero, remove the product card
+                document.getElementById(`product_card_${productName}`).remove();
+            }
+
+            document.getElementById(`price_${productName}`).innerText = `$${data.new_total}.00`;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+        reloadPage()
+
+    }function adjustQuantityByInput(productName) {
+        // Get the quantity value from the input field
+        const quantityInput = document.getElementById(`quantity_${productName}`);
+        const newQuantity = parseInt(quantityInput.value, 10);
+
+        // Check if the new quantity is valid
+        if (!isNaN(newQuantity) && newQuantity >= 1) {
+            fetch('/adjust_quantity', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    product_name: productName,
+                    quantity_change: newQuantity - parseInt(quantityInput.getAttribute('data-prev-value'), 10),
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                quantityInput.setAttribute('data-prev-value', newQuantity);
+                quantityInput.value = data.new_quantity;
+
+                // Reload the page after adjusting quantity
+                reloadPage();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    }
+
+    // Add an event listener to the quantity input field
+    document.addEventListener('input', function(event) {
+        if (event.target && event.target.classList.contains('quantity-input')) {
+            const productName = event.target.getAttribute('data-product-name');
+            adjustQuantityByInput(productName);
+        }
+    });
+
+    function deleteProduct(productName) {
+        fetch('/delete_product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                product_name: productName,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Remove the product card from the UI
+            document.getElementById(`product_card_${productName}`).remove();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+        reloadPage()
+
+    }
+      // New function to update subtotal
+    function updateSubtotal() {
+        fetch('/get_subtotal')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('subtotal').innerText = `$${data.subtotal}.00`;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+        reloadPage()
+    }
+     function reloadPage() {
+
+        // Reload the page after a short delay to allow the transition
+        setTimeout(function() {
+            location.reload();
+        }, 1); // Adjust the delay (in milliseconds) based on your preference
+    }
+</script>
+
+
+</body>
+</html>
